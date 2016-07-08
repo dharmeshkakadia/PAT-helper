@@ -2,6 +2,7 @@
 # Arguments:
 # * Password
 # * Workload kick-off script
+# * Run name (Optional)
 # Assumptions : /etc/hadoop/conf/slaves contains list of worker nodes, one per line
 
 # check if sshpass is installed, if not install it.
@@ -40,4 +41,4 @@ INSTRUMENTS: cpustat memstat netstat iostat vmstat jvms perf
 EOM
 
 cd PAT-master/PAT/
-./pat run
+./pat run $3
