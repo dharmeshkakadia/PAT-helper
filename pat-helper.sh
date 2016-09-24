@@ -24,13 +24,13 @@ done
 
 pdsh -R ssh -w ^/etc/hadoop/conf/slaves sudo apt-get -y -qq install linux-tools-common sysstat gawk
 
-if [ ! -d PAT-master ]; then
+if [ ! -d PAT-fork-master ]; then
         echo "Downloading PAT tool"
-        wget https://github.com/intel-hadoop/PAT/archive/master.zip
-        unzip master.zip
+        wget https://github.com/dharmeshkakadia/PAT-fork/archive/master.zip
+        unzip PAT-fork-master.zip
 fi
 
-cat <<EOM >PAT-master/PAT/config
+cat <<EOM >PAT-fork-master/PAT/config
 ALL_NODES: `cat /etc/hadoop/conf/slaves | tr '\r\n' ' '`
 
 WORKER_SCRIPT_DIR: /tmp/PAT
