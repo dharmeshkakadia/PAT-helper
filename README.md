@@ -22,12 +22,12 @@ The above step will generate a results folder with a timestamp under PAT-master/
 
 2. Use the following commands to generate aggregates resource usage. The following command will generate aggregate for Network usage.
     ```shell
-    find . -name netstat -type f -exec grep 'eth0' {} > temp  \; ; find . -name netstat -type f -exec head -1 {}  \; | uniq | sed 's/%//g' | sed 's:/::g' | {cat -; cat temp} > allnet.tsv 
+    find . -name netstat -type f -exec grep 'eth0' {} > temp  \; ; find . -name netstat -type f -exec head -1 {}  \; | uniq | sed 's/%//g' | sed 's:/::g' > header ; cat header temp > allnet.tsv 
     ```
 
 3. The following command will generate aggregate for CPU usage.
     ```shell
-    find . -name cpustat -type f -exec sed '1d' {} > temp \;  ; find . -name cpustat -type f -exec head -1 {}  \; | uniq | sed 's/%//g' | {cat -; cat temp} > allcpu.tsv 
+    find . -name cpustat -type f -exec sed '1d' {} > temp \;  ; find . -name cpustat -type f -exec head -1 {}  \; | uniq | sed 's/%//g' > header ; cat header temp > allcpu.tsv 
     ```
 
 4. You can further aggregate/join data using csvsql (from csvkit - install using `pip install csvkit`). Note it supports arbitrary SQL query against the csv/tsv files. Below is an example where we join the CPU and network aggregated data based on timestamps to give a single pane view of what was the status of the system over time.
