@@ -30,7 +30,7 @@ The above step will generate a results folder with a timestamp under PAT-master/
     find . -name cpustat -type f -exec sed '1d' {} > temp \;  ; find . -name cpustat -type f -exec head -1 {}  \; | uniq | sed 's/%//g' | {cat -; cat temp} > allcpu.tsv 
     ```
 
-4. You can further aggregate/join data using csvsql (from csvkit).
+4. You can further aggregate/join data using csvsql (from csvkit - install using `pip install csvkit`). Note it supports arbitrary SQL query against the csv/tsv files. Below is an example where we join the CPU and network aggregated data based on timestamps to give a single pane view of what was the status of the system over time.
     ```shell
     csvsql allnet.tsv allcpu.tsv --query "select a.timestamp,sum(txkbs)/1000000,sum(rxkbs)/1000000, avg(user), avg(system) from allnet a, allcpu b where a.timestamp=b.timestamp group by a.timestamp" > summary_stats.csv
     ```
